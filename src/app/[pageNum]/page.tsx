@@ -1,35 +1,32 @@
-import styles from "../page.module.css"
+import styles from "../page.module.css";
 export default async function ImagesPanel({
   params,
 }: {
   params: { pageNum: string };
 }) {
   const res = await fetch(
-    `https://rickandmortyapi.com/api/character?page=${params.pageNum}`
+    `https://rickandmortyapi.com/api/character?page=${params.pageNum}`,
+    { cache: "no-cache" }
   );
   const data = await res.json();
-  console.log("test server")
+  console.log("test server");
 
-  return(
-    <>
+  return (
     <ul className={styles.grid}>
-    {data.results.map((result: { id: any; name: any; image: string }) => {
-      const { id, name, image } = result;
-      return (
-        <li key={id} className="card">
-          <img
-            src={image}
-            width={200}
-            height={200}
-            alt={`picture of ${name}`}
-          />
-          <h3>{name}</h3>
-        </li>
-      );
-    })}
-  </ul>
-  
-  </>
-
-  )
+      {data.results.map((result: { id: any; name: any; image: string }) => {
+        const { id, name, image } = result;
+        return (
+          <li key={id} className="card">
+            <img
+              src={image}
+              width={200}
+              height={200}
+              alt={`picture of ${name}`}
+            />
+            <h3>{name}</h3>
+          </li>
+        );
+      })}
+    </ul>
+  );
 }
